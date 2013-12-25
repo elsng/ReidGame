@@ -22,17 +22,15 @@ function Monster:init(reid, pos)
     self.invulnDuration = 0
     --size
     self.size = vec2(50,50)
-    -- parameter hit radius for monster
-    --parameter.number("MonsterHitRadius",10,200,60)
+    -- The radius in which BoBo can be hit 
     MonsterHitRadius = 60
-    
     -- set hit radius (the radius in which a monster uses to attack)
     self.hitRadius = MonsterHitRadius
-    
+    -- adds to the world monster count
     monsterCount = monsterCount + 1
 end
 
---AI to move to Reid when Reid is nearby
+--AI to move to Reid
 function Monster:moveToReid()
     -- create line between monster and reid
     line = self.reid.position - self.position
@@ -48,7 +46,6 @@ function Monster:moveAwayFromReid(amount)
     line = self.position - self.reid.position
     -- normalize math
     line = line:normalize()
-    
     -- set knockback
     self.knockVel = self.knockVel + line * amount
 end
@@ -60,12 +57,10 @@ end
 
 --Draw Monster
 function Monster:draw()
-    
     -- set monster hit radius
     self.hitRadius = MonsterHitRadius
     --set invulnerability
     self.invulnDuration = math.max(self.invulnDuration - 1/60, 0)
-    
     -- if dead draw death animation
     if self.dead then
         pushStyle()
@@ -104,21 +99,19 @@ function Monster:draw()
             self.invulnDuration = 0.5
             -- shake animation
             self:shake()
-            
             -- if health is depleted set dead to true
             if self.health <= 0 then
                 self.dead = true
+                -- add to total player points
                 playerPoints = playerPoints + 1
+                -- add to world monster count
                 monsterCount = monsterCount - 1
             end
         end
-        -- if distance to reid is within (less than) the aggression radius and invulnerability is off   
-        --elseif distToReid < self.aggressionRadius and self.invulnDuration == 0 then
-            --move closer to reid
-            self:moveToReid()
-        --end
         
-        -- reposition based on knock velocity
+        self:moveToReid()
+        
+        -- reposition based on knockback velocity
         self.position = self.position + self.knockVel
         self.knockVel = self.knockVel * 0.7
 
@@ -128,7 +121,7 @@ function Monster:draw()
         tintForInvulnDuration(self.invulnDuration)
         -- shake shake shake!!
         shake = vec2(math.random() * self.shakeAmount, math.random() * self.shakeAmount)
-        -- draw enemy, with shake
+        -- draw enemy
         sprite("Dropbox:bobo", self.position.x + shake.x, self.position.y + 35 + shake.y, 60) 
         
         popStyle()

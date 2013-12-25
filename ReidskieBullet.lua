@@ -15,14 +15,11 @@ function ReidskieBullet:init(reid)
 end
 
 function ReidskieBullet:draw()
-    --self.currentTime = self.currentTime + 1/30
-    --attackTime = (self.currentTime)/self.duration 
-    -- Codea does not automatically call this method
-    --self.position.y = self.reid.position.y
-    
+    -- only draw the bullet if it's within the canvas
     if self.position.x < WIDTH then
         self.position.x = self.position.x + 6 * 10
         sprite("Dropbox:bullet", self.position.x, self.position.y, self.size)
+        -- returns the position of the bullet for use in hit detection
         self:returnPos()
     end
 end

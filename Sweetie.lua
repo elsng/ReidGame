@@ -6,7 +6,6 @@ function Sweetie:init(reid, pos)
     self.reid = reid
     -- monster position
     self.position = pos
-
     --size
     self.size = 60
     -- set hit radius (the radius in which a monster uses to attack)

@@ -5,6 +5,7 @@ function ScreenGameOver:init()
 end
 
 function ScreenGameOver:tick()
+    -- old code for changing the screen on a timer. might come in handy later
     --self.frame = self.frame + 1
     --if self.frame > 100 then
         --changeScreen(ScreenTitle())

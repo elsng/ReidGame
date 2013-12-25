@@ -16,18 +16,14 @@ function Reidskie:init()
     self.invulnDuration = 0
     --the velocity at which Reidskie gets knocked back when hit
     self.knockVel = vec2(0,0)
-    
+    -- the current powerup active right now
     self.currentPowerupName = ""
-    
     -- Attack duration
     self.powerupDuration = 0.3
     -- Current Time
     self.powerupCurrentTime = 0
     -- end time, which is a combination of current and duration
     self.powerupEndTime = self.powerupCurrentTime + self.powerupDuration
-
-    --just a parameter that watches for Reid's health
-    --parameter.watch("ReidskieHealth")
 end
 
 --
@@ -37,7 +33,6 @@ end
 --
 
 function Reidskie:move(dir)
-    --self.movementSpeed = 20
     -- new position vec2 which takes a point, adds whichever direction it's moving multiplied by speed
     newPos = self.position + dir * self.movementSpeed
     -- reposition if knockVel is more than 0 (see below)
@@ -50,9 +45,10 @@ function Reidskie:move(dir)
         --set sprite to forward if the opposite
         elseif(self.position.x < newPos.x) then
             sprite("Dropbox:reidskie-forward", self.position.x + 5, self.position.y + 25, self.size + 20)
-        --otherwise set the sprite to normal
-        elseif (self.invulnDuration > 0) then
-            sprite("Dropbox:reidskie-hit", self.position.x + 5, self.position.y + 25, self.size + 20)
+        --otherwise set the sprite to hit (not working)
+        --elseif (self.invulnDuration > 0) then
+            --sprite("Dropbox:reidskie-hit", self.position.x + 5, self.position.y + 25, self.size + 20)
+        -- otherwise draw normal reidskie sprite
         else
             sprite("Dropbox:reidskie-normal", self.position.x + 5, self.position.y + 25, self.size + 20)        
         end
@@ -101,7 +97,6 @@ function Reidskie:applyDamageFromPoint(point, damage)
         self.invulnDuration = 0.5
         --set knock velocity, initial knock velocity plus direction (line) plus speed
         self.knockVel = self.knockVel + line * 20
-        
     end
 end
 
@@ -110,9 +105,6 @@ function Reidskie:damageAtPoint(reidAttack, enemy)
     --reidPosition = reid
     reid = reidAttack
     enemyPosition = enemy
-    
-    --print(enemy.position)
-   
     -- if currently attacking
     if self.currentAttack then
          distToEnemy = self.currentAttack.bullet.position:dist(enemyPosition.position)

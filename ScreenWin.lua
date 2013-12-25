@@ -1,11 +1,11 @@
 ScreenWin = class()
 
-function ScreenWin:init(x)
-    -- you can accept and set parameters here
+function ScreenWin:init()
     self.frame = 0
 end
 
 function ScreenWin:tick()
+    -- old code for changing the screen on a timer. might come in handy later
     --self.frame = self.frame + 1
     --if self.frame > 100 then
         --changeScreen(ScreenGame())

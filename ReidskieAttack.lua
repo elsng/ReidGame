@@ -18,7 +18,6 @@ function ReidskieAttack:init(reid, power)
     self.currentSize = self.size
     -- get Reid's position
     self.position = reid.position
-    
     --bullet Positions
     self.bullet = ReidskieBullet(reid)
 end
@@ -32,8 +31,6 @@ end
 function ReidskieAttack:draw()
     self.currentTime = self.currentTime + 1/30
     
-    -- Time in the attack, 0 to 1
-    --attackTime = (self.currentTime)/self.duration 
     pushStyle()
     
     fill(255,0,0)

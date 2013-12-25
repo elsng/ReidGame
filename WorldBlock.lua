@@ -36,8 +36,6 @@ end
 
 -- draw block
 function WorldBlock:draw()
-    -- set tint of block
-    --tint(self.tint)
 
     -- depending on type of block, draw the appropriate block
     if self.type == FLOOR then

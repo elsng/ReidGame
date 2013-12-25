@@ -8,7 +8,6 @@ function PowerUpHandler:init(reid)
         {["type"]=4, ["name"]="kiss", ["param"]="health",  ["amount"]=10, ["properName"]="Kiss", ["properParam"]="Health" },
     }
     self.reid = reid
-
 end
 -- this function just returns the count of objects in a list item... because lua doesn't have .count for some reason
 function powerupLength(list)
@@ -45,6 +44,7 @@ function PowerUpHandler:handlePowerup(reid)
         power = PowerUp(powerUpList[randomNumber]["param"],powerUpList[randomNumber]["amount"])
         reid.currentPowerupName = powerupName
     end
+    
     reid:applyPowerup(power)
     
     gameText.messageText = "Sweetie used " .. powerUpList[randomNumber]["properName"] .. ". " .. powerUpList[randomNumber]["properParam"] .. " was increased!"
